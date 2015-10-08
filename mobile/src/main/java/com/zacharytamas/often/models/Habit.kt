@@ -22,4 +22,12 @@ public class Habit: RealmObject() {
     var lastCompletedAt: Date? = null
     var dueAtSpecificTime: Boolean = false
     var dueAt: Date? = null
+
+    fun getRepeatsOnWeekday(day: Int): Boolean {
+        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    fun setRepeatOnWeekday(day: Int, repeats: Boolean) {
+        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }

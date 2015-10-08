@@ -22,6 +22,12 @@ android {
     }
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
+        test.java.srcDirs += 'src/test/kotlin'
+        androidTest.java.srcDirs += 'src/androidTest/kotlin'
+    }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
     }
 }
 
@@ -34,7 +40,9 @@ dependencies {
     compile 'com.android.support:design:23.0.1'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile 'io.realm:realm-android:0.83.0'
+    compile 'joda-time:joda-time:2.8.2'
 }
+
 buildscript {
     ext.kotlin_version = '0.14.451'
     repositories {
@@ -44,6 +52,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
+
 repositories {
     mavenCentral()
 }
