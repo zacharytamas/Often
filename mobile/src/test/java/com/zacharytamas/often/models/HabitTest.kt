@@ -4,16 +4,16 @@ import android.test.InstrumentationTestCase
 import junit.framework.Assert
 
 import org.joda.time.DateTime
+import org.junit.Test
 import java.util.*
 
-class HabitTest : InstrumentationTestCase() {
+class HabitTest {
 
     internal var habit: Habit? = null
     internal var now: Date? = null
 
     @Throws(Exception::class)
-    override fun setUp() {
-        super.setUp()
+    fun setUp() {
 
         now = getDate(1992, 1, 31)
 
@@ -35,7 +35,9 @@ class HabitTest : InstrumentationTestCase() {
                 dateTime2.withTimeAtStartOfDay())
     }
 
+    @Test
     fun test_setRepeatOnWeekday() {
+        this.setUp();
         val habit = this.habit!!
         Assert.assertEquals(habit.repeatWeekdays.toInt(), 0)
 
