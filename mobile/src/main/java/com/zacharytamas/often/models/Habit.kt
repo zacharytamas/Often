@@ -1,12 +1,14 @@
 package com.zacharytamas.often.models
 
 import io.realm.RealmObject
+import io.realm.annotations.PrimaryKey
 import java.util.*
 
 /**
  * Created by zacharytamas on 10/8/15.
  */
 public class Habit: RealmObject() {
+    @PrimaryKey public var id: Int = 0
     public var title: String = ""
     public var required: Boolean = true
 
