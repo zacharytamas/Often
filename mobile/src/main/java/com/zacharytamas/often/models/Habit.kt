@@ -1,5 +1,6 @@
 package com.zacharytamas.often.models
 
+import com.zacharytamas.often.utils.Dates
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 import java.util.*
@@ -24,10 +25,10 @@ public class Habit: RealmObject() {
     var dueAt: Date? = null
 
     fun getRepeatsOnWeekday(day: Int): Boolean {
-        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return Dates.getBitForWeekday(this.repeatWeekdays, day);
     }
 
     fun setRepeatOnWeekday(day: Int, repeats: Boolean) {
-        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+        this.repeatWeekdays = Dates.setBitForWeekday(this.repeatWeekdays, day, repeats);
     }
 }
