@@ -76,7 +76,6 @@ object Dates {
 
     fun nextDueAt(habit: Habit, now: Date): Date {
         return DateTime(nextAvailableAt(habit, now)).plus(Period.days(1)).toDate()
-
     }
     
     fun isOverdue(habit: Habit): Boolean {
