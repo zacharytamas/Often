@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar
 import android.view.View
 import android.view.Menu
 import android.view.MenuItem
+import com.zacharytamas.often.utils.Data
 
 class TodayActivity : AppCompatActivity() {
 
@@ -22,7 +23,8 @@ class TodayActivity : AppCompatActivity() {
         val fab = findViewById(R.id.fab) as FloatingActionButton
         fab.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show()
+                Data.addTestData(this@TodayActivity)
+                Snackbar.make(view, "Test data added", Snackbar.LENGTH_LONG).setAction("Action", null).show()
             }
         })
     }
