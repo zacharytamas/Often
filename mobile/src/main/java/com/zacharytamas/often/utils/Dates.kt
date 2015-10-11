@@ -65,7 +65,7 @@ object Dates {
                         dt = dt.plus(Period.days((repeatScalar - 1) * 7))
                     }
 
-                } while (!habit.getRepeatsOnWeekday(dt.dayOfWeek))
+                } while (!habit.getRepeatOnWeekday(dt.dayOfWeek))
 
                 return dt.toDate()
             }

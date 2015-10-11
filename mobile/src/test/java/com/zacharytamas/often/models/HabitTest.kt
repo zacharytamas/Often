@@ -41,16 +41,16 @@ class HabitTest {
         val habit = this.habit!!
         Assert.assertEquals(habit.repeatWeekdays.toInt(), 0)
 
-        Assert.assertFalse(habit.getRepeatsOnWeekday(Calendar.SUNDAY))
+        Assert.assertFalse(habit.getRepeatOnWeekday(Calendar.SUNDAY))
         habit.setRepeatOnWeekday(Calendar.SUNDAY, true)
-        Assert.assertTrue(habit.getRepeatsOnWeekday(Calendar.SUNDAY))
+        Assert.assertTrue(habit.getRepeatOnWeekday(Calendar.SUNDAY))
         habit.setRepeatOnWeekday(Calendar.SUNDAY, false)
-        Assert.assertFalse(habit.getRepeatsOnWeekday(Calendar.SUNDAY))
+        Assert.assertFalse(habit.getRepeatOnWeekday(Calendar.SUNDAY))
 
-        Assert.assertFalse(habit.getRepeatsOnWeekday(Calendar.MONDAY))
+        Assert.assertFalse(habit.getRepeatOnWeekday(Calendar.MONDAY))
         habit.setRepeatOnWeekday(Calendar.SUNDAY, true)
         habit.setRepeatOnWeekday(Calendar.MONDAY, true)
-        Assert.assertTrue(habit.getRepeatsOnWeekday(Calendar.SUNDAY))
+        Assert.assertTrue(habit.getRepeatOnWeekday(Calendar.SUNDAY))
 
     }
 
