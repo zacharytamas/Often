@@ -81,4 +81,11 @@ object Dates {
     fun isOverdue(habit: Habit): Boolean {
         return DateTime(habit.dueAt).isBeforeNow
     }
+
+    fun createDate(year: Int, month: Int, day: Int): Date {
+        val cal = Calendar.getInstance()
+        cal.timeInMillis = 0
+        cal.set(year, month, day, 17, 0, 0)
+        return cal.time
+    }
 }
