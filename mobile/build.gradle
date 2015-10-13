@@ -41,6 +41,7 @@ dependencies {
     kapt "io.realm:realm-android:$realm_version"
     compile "io.realm:realm-android:$realm_version"
     compile 'joda-time:joda-time:2.8.2'
+    compile 'com.github.pavlospt:circleview:1.2'
 }
 
 buildscript {
