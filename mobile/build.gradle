@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.0"
+    buildToolsVersion "23.0.1"
 
     defaultConfig {
         applicationId "com.zacharytamas.often"
@@ -11,37 +11,47 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
+        test.java.srcDirs += 'src/test/kotlin'
+        androidTest.java.srcDirs += 'src/androidTest/kotlin'
     }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    wearApp project(':wear')
+//    wearApp project(':wear')
     testCompile 'junit:junit:4.12'
+    compile 'com.android.support:multidex:1.0.1'
     compile 'com.android.support:appcompat-v7:23.0.1'
-    compile 'com.google.android.gms:play-services:8.1.0'
     compile 'com.android.support:design:23.0.1'
-    compile 'io.realm:realm-android:0.82.2'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile 'io.realm:realm-android:0.83.0'
+    compile 'joda-time:joda-time:2.8.2'
 }
+
 buildscript {
     ext.kotlin_version = '0.14.451'
     repositories {
         mavenCentral()
+        jcenter()
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
     }
 }
+
 repositories {
     mavenCentral()
 }
