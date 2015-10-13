@@ -29,6 +29,8 @@ android {
 }
 
 dependencies {
+    ext.realm_version = '0.83.0'
+
     compile fileTree(dir: 'libs', include: ['*.jar'])
 //    wearApp project(':wear')
     testCompile 'junit:junit:4.12'
@@ -36,7 +38,8 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.android.support:design:23.0.1'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile 'io.realm:realm-android:0.83.0'
+    kapt "io.realm:realm-android:$realm_version"
+    compile "io.realm:realm-android:$realm_version"
     compile 'joda-time:joda-time:2.8.2'
 }
 
