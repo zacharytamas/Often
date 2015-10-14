@@ -57,7 +57,7 @@ object Data {
             habit1.repeatUnit = RepeatUnit.DAILY
             habit1.repeatScalar = 1
             habit1.lastCompletedAt = DateTime().minusDays(1).toDate()
-            habit1.availableAt = Dates.createDate(2014, 5, 1)
+            habit1.availableAt = Dates.createDate(2015, 5, 1)
             habit1.dueAt = DateTime().plusDays(1).toDate()
             habit1.required = true
             habit1.streakValue = 20
@@ -65,14 +65,14 @@ object Data {
             val habit2 = realm.createObject(Habit::class.java)
             habit2.title = "Wash face before bed"
             habit2.repeatType = RepeatType.PERIODICAL
-            habit2.lastCompletedAt = Dates.createDate(2014, 11, 8)
-            habit2.availableAt = Dates.createDate(2014, 9, 1)
+            habit2.lastCompletedAt = DateTime().minusDays(20).toDate()
+            habit2.availableAt = DateTime().minusDays(19).toDate()
 
             val habit3 = realm.createObject(Habit::class.java)
             habit3.title = "Have car washed"
             habit3.repeatType = RepeatType.PERIODICAL
-            habit3.availableAt = Dates.createDate(2014, 10, 25)
-            habit3.lastCompletedAt = Dates.createDate(2014, 11, 1)
+            habit3.availableAt = DateTime().minusDays(24).toDate()
+            habit3.lastCompletedAt = DateTime().minusDays(25).toDate()
 
             val habit4 = realm.createObject(Habit::class.java)
             habit4.title = "Record weight"
