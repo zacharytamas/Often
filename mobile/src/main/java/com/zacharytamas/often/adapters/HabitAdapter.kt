@@ -2,9 +2,13 @@ package com.zacharytamas.often.adapters
 
 import android.content.Context
 import android.text.format.DateUtils
+import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.ListAdapter
+import android.widget.RelativeLayout
 import android.widget.TextView
 
 import com.github.pavlospt.CircleView
@@ -26,17 +30,27 @@ class TodayAdapter(context: Context, var dueHabits: RealmResults<Habit>, var ava
 
     var mRows: ArrayList<Row> = ArrayList()
 
+    companion object {
+        private val HABIT_LAYOUT = R.layout.item_habit
+        private val SECTION_HEADER_LAYOUT = R.layout.item_list_header
+
+        private val TYPE_HEADER = 0
+        private val TYPE_HABIT = 1
+    }
+
     private class Row(val type: Int = 0, val title: String, val habit: Habit?) {
         constructor(type: Int, title: String) : this(type, title, null);
         constructor(type: Int, habit: Habit) : this(type, "", habit);
     }
 
     private class ViewHolder(
+            var mainView: LinearLayout?,
+            var doneView: RelativeLayout?,
             var habitTitle: TextView?,
             var lastCompletedTextView: TextView?,
             var circleView: CircleView?,
             var sectionHeader: TextView?) {
-        constructor() : this(null, null, null, null);
+        constructor() : this(null, null, null, null, null, null);
     };
 
     init {
@@ -98,11 +112,14 @@ class TodayAdapter(context: Context, var dueHabits: RealmResults<Habit>, var ava
             when (row.type) {
                 TYPE_HEADER -> {
                     view = inflater.inflate(SECTION_HEADER_LAYOUT, viewGroup, false)!!
-                    viewHolder = ViewHolder(null, null, null, view.findViewById(R.id.sectionTitleTextView) as TextView)
+                    viewHolder = ViewHolder(null, null, null, null, null,
+                            view.findViewById(R.id.sectionTitleTextView) as TextView)
                 }
                 TYPE_HABIT -> {
                     view = inflater.inflate(HABIT_LAYOUT, viewGroup, false)!!
-                    viewHolder = ViewHolder(view.findViewById(R.id.habitTitle) as TextView,
+                    viewHolder = ViewHolder(view.findViewById(R.id.list_item_main) as LinearLayout,
+                            view.findViewById(R.id.list_item_done_layout) as RelativeLayout,
+                            view.findViewById(R.id.habitTitle) as TextView,
                             view.findViewById(R.id.lastCompletedTextView) as TextView,
                             view.findViewById(R.id.circleView) as CircleView,
                             null)
@@ -123,6 +140,11 @@ class TodayAdapter(context: Context, var dueHabits: RealmResults<Habit>, var ava
         if (row.type == TYPE_HABIT) {
             val habit = mRows.get(i).habit!!
             viewHolder.habitTitle?.text = habit.title
+
+            val params = viewHolder.mainView?.getLayoutParams() as RelativeLayout.LayoutParams;
+            params.leftMargin = 0;
+            viewHolder.mainView?.layoutParams = params;
+            view.setOnTouchListener(SwipeDetector(viewHolder, i));
 
             var convertedDate = ""
 
@@ -160,11 +182,74 @@ class TodayAdapter(context: Context, var dueHabits: RealmResults<Habit>, var ava
         return view
     }
 
-    companion object {
-        private val HABIT_LAYOUT = R.layout.item_habit
-        private val SECTION_HEADER_LAYOUT = R.layout.item_list_header
+    class SwipeDetector(val viewHolder: ViewHolder, position: Int) : View.OnTouchListener {
 
-        private val TYPE_HEADER = 0
-        private val TYPE_HABIT = 1
+        var downX: Float = 0F;
+        var upX: Float = 0F;
+
+        companion object {
+            val MIN_DISTANCE = 300;
+            val MIN_LOCK_DISTANCE = 30;
+        }
+
+        override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+            var event = event!!
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    downX = event.getX();
+                    return true;
+                }
+
+                MotionEvent.ACTION_MOVE -> {
+                    upX = event.getX();
+                    val deltaX = downX - upX;
+
+                    if (Math.abs(deltaX) > MIN_LOCK_DISTANCE) {
+
+                    }
+
+                    if (deltaX > 0) {
+                        viewHolder.doneView?.visibility = View.GONE;
+                    } else {
+                        viewHolder.doneView?.visibility = View.VISIBLE;
+                    }
+
+                    swipe(-deltaX.toInt());
+                    return true;
+                }
+
+                MotionEvent.ACTION_UP -> {
+                    upX = event.getX()
+                    val deltaX = upX - downX;
+
+                    if (Math.abs(deltaX) > MIN_DISTANCE) {
+                        swipeDone();
+                    } else {
+                        swipe(0);
+                    }
+
+                    viewHolder.doneView?.visibility = View.VISIBLE
+                    return true
+                }
+
+                MotionEvent.ACTION_CANCEL -> {
+                    viewHolder.doneView?.visibility = View.VISIBLE
+                }
+            }
+
+            return true
+        }
+
+        private fun swipeDone() {
+            Log.i("HabitAdapter", "should mark done")
+        }
+
+        private fun swipe(distance: Int) {
+            val animationView = viewHolder.mainView!!
+            val params = animationView.layoutParams as RelativeLayout.LayoutParams
+            params.rightMargin = -distance
+            params.leftMargin = distance
+            animationView.layoutParams = params
+        }
     }
 }
