@@ -19,6 +19,10 @@ class HabitManager(context: Context) {
         mRealm = Data.getRealm(context)
     }
 
+    /**
+     * Returns the Habits which are Available for completion at the current moment
+     * and are explicitly due.
+     */
     fun getDueHabits() : RealmResults<Habit> {
         return mRealm.where(Habit::class.java)
                      .lessThan("availableAt", DateTime().toDate())
@@ -30,8 +34,12 @@ class HabitManager(context: Context) {
      * Returns the Habits which are available for completion at the current moment.
      * This excludes Habits whose next occurrence is in the future.
      */
-    val availableHabits: RealmResults<Habit>
-        get() = mRealm.where(Habit::class.java).lessThan("availableAt", DateTime().toDate()).equalTo("required", false).findAll()
+    fun getAvailableHabits() : RealmResults<Habit> {
+        return mRealm.where(Habit::class.java)
+                     .lessThan("availableAt", DateTime().toDate())
+                     .equalTo("required", false)
+                     .findAll()
+    }
 
     fun completeHabit(habit: Habit) {
         mRealm.beginTransaction()

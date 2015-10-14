@@ -32,13 +32,11 @@ class TodayActivity : AppCompatActivity() {
         val fab = findViewById(R.id.fab) as FloatingActionButton
         fab.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View) {
-//                habitManager.mRealm.close();
-
-//                Snackbar.make(view, "Test data added", Snackbar.LENGTH_LONG).setAction("Action", null).show()
+                Snackbar.make(view, "Should launch Add Habit Activity", Snackbar.LENGTH_LONG).setAction("Action", null).show()
             }
         })
 
-        val availableHabits = habitManager.availableHabits;
+        val availableHabits = habitManager.getAvailableHabits();
         val dueHabits = habitManager.getDueHabits();
 
         val todayAdapter = TodayAdapter(this, availableHabits, dueHabits);
