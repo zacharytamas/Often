@@ -98,7 +98,7 @@ class TodayAdapter(context: Context, var dueHabits: RealmResults<Habit>, var ava
             when (row.type) {
                 TYPE_HEADER -> {
                     view = inflater.inflate(SECTION_HEADER_LAYOUT, viewGroup, false)!!
-                    viewHolder = ViewHolder(null, null, null, view?.findViewById(R.id.sectionTitleTextView) as TextView)
+                    viewHolder = ViewHolder(null, null, null, view.findViewById(R.id.sectionTitleTextView) as TextView)
                 }
                 TYPE_HABIT -> {
                     view = inflater.inflate(HABIT_LAYOUT, viewGroup, false)!!
@@ -118,14 +118,11 @@ class TodayAdapter(context: Context, var dueHabits: RealmResults<Habit>, var ava
 
         // Tell Kotlin that view should be defined now so we can safely assume that it is.
         view = view!!
+        viewHolder = viewHolder!!
 
         if (row.type == TYPE_HABIT) {
             val habit = mRows.get(i).habit!!
-            // NOTE: These ?. are a Kotlin thing. Basically we can't be sure a given viewHolder
-            // has all of these things. I *know* they will based on the row type but from a
-            // compiler standpoint... it can't know. This probably should hint to me that I've
-            // architected something poorly.
-            viewHolder?.habitTitle?.text = habit.title
+            viewHolder.habitTitle?.text = habit.title
 
             var convertedDate = ""
 
@@ -136,7 +133,7 @@ class TodayAdapter(context: Context, var dueHabits: RealmResults<Habit>, var ava
                         DateUtils.SECOND_IN_MILLIS).toString()
             }
 
-            viewHolder?.lastCompletedTextView?.text = convertedDate
+            viewHolder.lastCompletedTextView?.text = convertedDate
 
             //
             // Circle
@@ -150,21 +147,20 @@ class TodayAdapter(context: Context, var dueHabits: RealmResults<Habit>, var ava
                 } else {
                     circleColor = context.resources.getColor(R.color.green)
                 }
-                viewHolder?.circleView?.setTitleText(Integer.toString(habit.streakValue))
+                viewHolder.circleView?.setTitleText(Integer.toString(habit.streakValue))
             } else {
                 circleColor = context.resources.getColor(R.color.grey)
             }
 
-            viewHolder?.circleView?.setFillColor(circleColor)
+            viewHolder.circleView?.setFillColor(circleColor)
         } else if (row.type == TYPE_HEADER) {
-            viewHolder?.sectionHeader?.text = row.title
+            viewHolder.sectionHeader?.text = row.title
         }
 
         return view
     }
 
     companion object {
-
         private val HABIT_LAYOUT = R.layout.item_habit
         private val SECTION_HEADER_LAYOUT = R.layout.item_list_header
 

@@ -33,7 +33,7 @@ class TodayActivity : AppCompatActivity() {
         fab.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View) {
 //                habitManager.mRealm.close();
-                
+
 //                Snackbar.make(view, "Test data added", Snackbar.LENGTH_LONG).setAction("Action", null).show()
             }
         })
