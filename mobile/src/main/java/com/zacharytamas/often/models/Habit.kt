@@ -12,7 +12,8 @@ import java.util.*
  */
 @RealmClass
 public open class Habit: RealmObject() {
-    @PrimaryKey open var id: Int = 0
+    // TODO Add a unique key back.
+//    @PrimaryKey open var id: Int = 0
     open var title: String = ""
     open var required: Boolean = true
 

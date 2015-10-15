@@ -8,6 +8,9 @@ import android.support.v7.widget.Toolbar
 import android.view.View
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ListView
+import com.zacharytamas.often.adapters.TodayAdapter
+import com.zacharytamas.often.models.managers.HabitManager
 import com.zacharytamas.often.utils.Data
 
 class TodayActivity : AppCompatActivity() {
@@ -20,13 +23,27 @@ class TodayActivity : AppCompatActivity() {
         val toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
 
+        // TODO Remove this once I figure out the migration stuff
+        Data.deleteDefaultRealm(this);
+        Data.addTestData(this@TodayActivity)
+
+        val habitManager = HabitManager(this);
+
         val fab = findViewById(R.id.fab) as FloatingActionButton
         fab.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View) {
-                Data.addTestData(this@TodayActivity)
-                Snackbar.make(view, "Test data added", Snackbar.LENGTH_LONG).setAction("Action", null).show()
+                Snackbar.make(view, "Should launch Add Habit Activity", Snackbar.LENGTH_LONG).setAction("Action", null).show()
             }
         })
+
+        val availableHabits = habitManager.getAvailableHabits();
+        val dueHabits = habitManager.getDueHabits();
+
+        val todayAdapter = TodayAdapter(this, availableHabits, dueHabits);
+
+        val listView = findViewById(R.id.listView) as ListView
+        listView.setAdapter(todayAdapter);
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
