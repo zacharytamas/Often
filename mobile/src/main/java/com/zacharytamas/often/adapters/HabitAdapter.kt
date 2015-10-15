@@ -84,22 +84,13 @@ class TodayAdapter(context: Context, var dueHabits: RealmResults<Habit>, var ava
         return mRows.get(position).type == TYPE_HABIT
     }
 
-    override fun getViewTypeCount(): Int {
-        // Headers and Habits
-        return 2
-    }
+    override fun getViewTypeCount(): Int = 2
 
-    override fun getItemViewType(position: Int): Int {
-        return mRows.get(position).type
-    }
+    override fun getItemViewType(position: Int): Int = mRows.get(position).type
 
-    override fun getCount(): Int {
-        return mRows.size()
-    }
+    override fun getCount(): Int = mRows.size()
 
-    override fun getItem(i: Int): Habit {
-        return mRows.get(i).habit!!
-    }
+    override fun getItem(i: Int): Habit = mRows.get(i).habit!!
 
     override fun getView(i: Int, view: View?, viewGroup: ViewGroup): View {
         var view = view
