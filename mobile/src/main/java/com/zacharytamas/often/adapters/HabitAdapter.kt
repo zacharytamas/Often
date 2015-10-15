@@ -141,9 +141,9 @@ class TodayAdapter(context: Context, var dueHabits: RealmResults<Habit>, var ava
             val habit = mRows.get(i).habit!!
             viewHolder.habitTitle?.text = habit.title
 
-            val params = viewHolder.mainView?.getLayoutParams() as RelativeLayout.LayoutParams;
-            params.leftMargin = 0;
-            viewHolder.mainView?.layoutParams = params;
+            // TODO I wonder if there is a way I can do this at a higher level so I have one
+            // SwipeDetector instead of one per row. Similar to using delegated listeners
+            // on the web.
             view.setOnTouchListener(SwipeDetector(viewHolder, i));
 
             var convertedDate = ""
@@ -205,16 +205,15 @@ class TodayAdapter(context: Context, var dueHabits: RealmResults<Habit>, var ava
                     val deltaX = downX - upX;
 
                     if (Math.abs(deltaX) > MIN_LOCK_DISTANCE) {
-
+                        swipe(-deltaX);
                     }
 
-                    if (deltaX > 0) {
-                        viewHolder.doneView?.visibility = View.GONE;
-                    } else {
-                        viewHolder.doneView?.visibility = View.VISIBLE;
-                    }
+//                    if (deltaX > 0) {
+//                        viewHolder.doneView?.visibility = View.GONE;
+//                    } else {
+//                        viewHolder.doneView?.visibility = View.VISIBLE;
+//                    }
 
-                    swipe(-deltaX.toInt());
                     return true;
                 }
 
@@ -224,16 +223,17 @@ class TodayAdapter(context: Context, var dueHabits: RealmResults<Habit>, var ava
 
                     if (Math.abs(deltaX) > MIN_DISTANCE) {
                         swipeDone();
-                    } else {
-                        swipe(0);
+                    } else if(Math.abs(deltaX) > MIN_LOCK_DISTANCE) {
+                        swipe(0F);
                     }
 
-                    viewHolder.doneView?.visibility = View.VISIBLE
+//                    viewHolder.doneView?.visibility = View.VISIBLE
                     return true
                 }
 
                 MotionEvent.ACTION_CANCEL -> {
-                    viewHolder.doneView?.visibility = View.VISIBLE
+                    swipe(0F)
+//                    viewHolder.doneView?.visibility = View.GONE
                 }
             }
 
@@ -244,12 +244,9 @@ class TodayAdapter(context: Context, var dueHabits: RealmResults<Habit>, var ava
             Log.i("HabitAdapter", "should mark done")
         }
 
-        private fun swipe(distance: Int) {
+        private fun swipe(distance: Float) {
             val animationView = viewHolder.mainView!!
-            val params = animationView.layoutParams as RelativeLayout.LayoutParams
-            params.rightMargin = -distance
-            params.leftMargin = distance
-            animationView.layoutParams = params
+            animationView.setX(distance)
         }
     }
 }
