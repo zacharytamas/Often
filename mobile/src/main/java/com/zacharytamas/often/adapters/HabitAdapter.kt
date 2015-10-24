@@ -28,7 +28,7 @@ import io.realm.RealmResults
  */
 class TodayAdapter(context: Context, var dueHabits: RealmResults<Habit>, var availableHabits: RealmResults<Habit>) : RealmBaseAdapter<Habit>(context, dueHabits, true), ListAdapter {
 
-    var mRows: ArrayList<Row> = ArrayList()
+    private var mRows: ArrayList<Row> = ArrayList()
 
     companion object {
         private val HABIT_LAYOUT = R.layout.item_habit
@@ -63,14 +63,14 @@ class TodayAdapter(context: Context, var dueHabits: RealmResults<Habit>, var ava
         this.mRows = ArrayList<Row>()
 
         // Build row list
-        if (dueHabits.size() > 0) {
+        if (dueHabits.size > 0) {
             mRows.add(Row(TYPE_HEADER, context.getString(R.string.list_header_due)))
             for (habit in dueHabits) {
                 mRows.add(Row(TYPE_HABIT, habit))
             }
         }
 
-        if (availableHabits.size() > 0) {
+        if (availableHabits.size > 0) {
             mRows.add(Row(TYPE_HEADER, context.getString(R.string.list_header_available)))
             for (habit in availableHabits) {
                 mRows.add(Row(TYPE_HABIT, habit))
@@ -88,7 +88,7 @@ class TodayAdapter(context: Context, var dueHabits: RealmResults<Habit>, var ava
 
     override fun getItemViewType(position: Int): Int = mRows.get(position).type
 
-    override fun getCount(): Int = mRows.size()
+    override fun getCount(): Int = mRows.size
 
     override fun getItem(i: Int): Habit = mRows.get(i).habit!!
 
@@ -162,7 +162,7 @@ class TodayAdapter(context: Context, var dueHabits: RealmResults<Habit>, var ava
                 }
                 viewHolder.circleView?.setTitleText(Integer.toString(habit.streakValue))
             } else {
-                circleColor = context.resources.getColor(R.color.grey)
+                circleColor = context.resources.getColor(R.color.greyDark)
             }
 
             viewHolder.circleView?.setFillColor(circleColor)
@@ -173,7 +173,7 @@ class TodayAdapter(context: Context, var dueHabits: RealmResults<Habit>, var ava
         return view
     }
 
-    class SwipeDetector(val viewHolder: ViewHolder, position: Int) : View.OnTouchListener {
+    private class SwipeDetector(val viewHolder: ViewHolder, position: Int) : View.OnTouchListener {
 
         var downX: Float = 0F;
         var upX: Float = 0F;
