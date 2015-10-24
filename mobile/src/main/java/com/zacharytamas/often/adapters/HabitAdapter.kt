@@ -162,7 +162,7 @@ class TodayAdapter(context: Context, var dueHabits: RealmResults<Habit>, var ava
                 }
                 viewHolder.circleView?.setTitleText(Integer.toString(habit.streakValue))
             } else {
-                circleColor = context.resources.getColor(R.color.grey)
+                circleColor = context.resources.getColor(R.color.greyDark)
             }
 
             viewHolder.circleView?.setFillColor(circleColor)
