@@ -23,35 +23,6 @@ import java.util.ArrayList
  */
 //class TodayAdapter(val context: Context, var dueHabits: List<Habit>, var availableHabits: List<Habit>) {
 //
-//    private var mRows: ArrayList<Row> = ArrayList()
-//
-//    companion object {
-//        private val HABIT_LAYOUT = R.layout.item_habit
-//        private val SECTION_HEADER_LAYOUT = R.layout.item_list_header
-//
-//        private val TYPE_HEADER = 0
-//        private val TYPE_HABIT = 1
-//    }
-//
-//    private class Row(val type: Int = 0, val title: String, val habit: Habit?) {
-//        constructor(type: Int, title: String) : this(type, title, null);
-//        constructor(type: Int, habit: Habit) : this(type, "", habit);
-//    }
-//
-//    private class ViewHolder(
-//            var mainView: LinearLayout?,
-//            var doneView: RelativeLayout?,
-//            var habitTitle: TextView?,
-//            var lastCompletedTextView: TextView?,
-//            var circleView: CircleView?,
-//            var sectionHeader: TextView?) {
-//        constructor() : this(null, null, null, null, null, null);
-//    };
-//
-//    init {
-//        refill(dueHabits, availableHabits)
-//    }
-//
 //    fun refill(dueHabits: List<Habit>, availableHabits: List<Habit>) {
 //        this.dueHabits = dueHabits
 //        this.availableHabits = availableHabits

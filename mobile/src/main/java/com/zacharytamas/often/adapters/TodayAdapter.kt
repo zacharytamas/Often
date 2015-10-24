@@ -1,26 +1,112 @@
 package com.zacharytamas.often.adapters
 
 import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
+import android.widget.TextView
+import com.github.pavlospt.CircleView
+import com.zacharytamas.often.R
+import com.zacharytamas.often.models.Habit
 
 /**
  * Created by zacharytamas on 10/24/15.
  */
-class TodayAdapter : RecyclerView.Adapter<TodayAdapter.HabitAdapterViewHolder>() {
-    override fun onBindViewHolder(holder: HabitAdapterViewHolder?, position: Int) {
-        throw UnsupportedOperationException()
+class TodayAdapter : RecyclerView.Adapter<TodayAdapter.RowViewHolder>() {
+
+    private var rows: MutableList<Row> = arrayListOf();
+
+    companion object {
+        private val HABIT_LAYOUT = R.layout.item_habit
+        private val SECTION_HEADER_LAYOUT = R.layout.item_list_header
+
+        private val TYPE_HEADER = 0
+        private val TYPE_HABIT = 1
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): HabitAdapterViewHolder? {
-        throw UnsupportedOperationException()
+    public fun refill(habits: List<Habit>) {
+        this.rows.clear();
+
+        // TODO Go through habits and create lists of Overdue and Available
+
+        this.rows.add(Row(TYPE_HEADER, "Available"));
+        notifyDataSetChanged();
     }
 
-    override fun getItemCount(): Int {
-        throw UnsupportedOperationException()
+    override fun onBindViewHolder(holder: RowViewHolder?, position: Int) {
+        holder?.updateView(this.rows.get(position));
     }
 
-    public class HabitAdapterViewHolder(val itemView: View) : RecyclerView.ViewHolder(itemView) {
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RowViewHolder? {
+        var holder: RowViewHolder? = null;
+        var view: View? = null;
+        val inflater = LayoutInflater.from(parent?.getContext());
+
+        when (viewType) {
+            TYPE_HABIT -> {
+                view = inflater.inflate(HABIT_LAYOUT, parent, false);
+            }
+            TYPE_HEADER -> {
+                view = inflater.inflate(SECTION_HEADER_LAYOUT, parent, false);
+            }
+        }
+
+        if (view != null) {
+            holder = RowViewHolder(view, viewType);
+        }
+
+        return holder
+    }
+
+    override fun getItemCount(): Int = this.rows.size;
+    override fun getItemViewType(position: Int): Int = rows.get(position).type;
+
+    /**
+     * Describes a row of the Today Recycler View.
+     * This can be a section header type or a Habit type.
+     */
+    private class Row(val type: Int = 0, val title: String?, val habit: Habit?) {
+        constructor(type: Int, title: String) : this(type, title, null);
+        constructor(type: Int, habit: Habit) : this(type, null, habit);
+    }
+
+    public class RowViewHolder(val view: View, val rowType: Int) : RecyclerView.ViewHolder(view) {
+
+        var mainView: LinearLayout? = null;
+        var doneView: RelativeLayout? = null;
+        var habitTitle: TextView? = null;
+        var lastCompletedTextView: TextView? = null;
+        var circleView: CircleView? = null;
+        var sectionHeader: TextView? = null;
+
+        init {
+            bindView();
+        }
+
+        fun updateView(row: Row) {
+            when (row.type) {
+                TYPE_HEADER -> {
+                    sectionHeader!!.text = row.title
+                }
+            }
+        }
+
+        fun bindView() {
+            when (rowType) {
+                TYPE_HEADER -> {
+                    sectionHeader = view.findViewById(R.id.sectionTitleTextView) as TextView;
+                }
+                TYPE_HABIT -> {
+                    mainView = view.findViewById(R.id.list_item_main) as LinearLayout;
+                    doneView = view.findViewById(R.id.list_item_done_layout) as RelativeLayout;
+                    habitTitle = view.findViewById(R.id.habitTitle) as TextView;
+                    lastCompletedTextView = view.findViewById(R.id.lastCompletedTextView) as TextView;
+                    circleView = view.findViewById(R.id.circleView) as CircleView;
+                }
+            }
+        }
 
     }
 

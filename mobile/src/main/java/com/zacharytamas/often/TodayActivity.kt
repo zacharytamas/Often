@@ -45,6 +45,8 @@ class TodayActivity : AppCompatActivity() {
         recyclerView.setLayoutManager(LinearLayoutManager(this));
         recyclerView.setAdapter(todayAdapter);
 
+        todayAdapter.refill(arrayListOf());
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
