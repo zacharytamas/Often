@@ -3,9 +3,6 @@ package com.zacharytamas.often.utils
 import android.content.Context
 import android.util.Log
 import com.zacharytamas.often.models.*
-import io.realm.Realm
-import io.realm.RealmConfiguration
-import io.realm.exceptions.RealmMigrationNeededException
 import org.joda.time.DateTime
 import org.joda.time.DateTimeConstants
 import java.io.File
@@ -16,34 +13,14 @@ import java.util.*
  */
 object Data {
 
-    fun getRealm(context: Context): Realm {
-        val realm: Realm?
-        val configuration = RealmConfiguration.Builder(context).build()
-
-        try {
-            realm = Realm.getInstance(configuration)
-        } catch (e: RealmMigrationNeededException) {
-            Realm.migrateRealm(configuration, Migrations())
-            // Then get it again.
-            realm = Realm.getInstance(configuration)
-        }
-
-        // TODO We'll need to check this for Migration issues
-        return realm!!
-    }
-
-    fun deleteDefaultRealm(context: Context) {
-        Realm.deleteRealm(RealmConfiguration.Builder(context).build())
-    }
-
     fun addTestData(context: Context, deleteFirst: Boolean = true) {
 
         var habitCount: Int
 
-        if (deleteFirst) {
-            this.deleteDefaultRealm(context)
-            habitCount = 0
-        }
+//        if (deleteFirst) {
+//            this.deleteDefaultRealm(context)
+//            habitCount = 0
+//        }
 
 //        val realm = getRealm(context)
 //        habitCount = realm.where(Habit::class.java).findAll().size()

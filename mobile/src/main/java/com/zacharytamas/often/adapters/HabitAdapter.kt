@@ -18,9 +18,6 @@ import org.joda.time.DateTime
 
 import java.util.ArrayList
 
-import io.realm.RealmBaseAdapter
-import io.realm.RealmResults
-
 /**
  * Created by zjones on 10/13/15.
  */

@@ -25,8 +25,6 @@ class TodayActivity : AppCompatActivity() {
         val toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
 
-        // TODO Remove this once I figure out the migration stuff
-        Data.deleteDefaultRealm(this);
         Data.addTestData(this@TodayActivity)
 
         val habitManager = HabitManager(this);

@@ -3,8 +3,6 @@ package com.zacharytamas.often.models.managers
 import android.content.Context
 import com.zacharytamas.often.models.Habit
 import com.zacharytamas.often.utils.Data
-import io.realm.Realm
-import io.realm.RealmResults
 import org.joda.time.DateTime
 
 /**
@@ -12,12 +10,6 @@ import org.joda.time.DateTime
  * Reminiscent of Django's Managers.
  */
 class HabitManager(context: Context) {
-
-    public val mRealm: Realm
-
-    init {
-        mRealm = Data.getRealm(context)
-    }
 
     /**
      * Returns the Habits which are Available for completion at the current moment
@@ -42,8 +34,8 @@ class HabitManager(context: Context) {
 //    }
 
     fun completeHabit(habit: Habit) {
-        mRealm.beginTransaction()
+//        mRealm.beginTransaction()
 //        Habits.completeHabit(habit)
-        mRealm.commitTransaction()
+//        mRealm.commitTransaction()
     }
 }
