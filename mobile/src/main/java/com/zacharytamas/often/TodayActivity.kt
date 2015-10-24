@@ -9,7 +9,6 @@ import android.view.View
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ListView
-import com.zacharytamas.often.adapters.TodayAdapter
 import com.zacharytamas.often.models.managers.HabitManager
 import com.zacharytamas.often.utils.Data
 
@@ -36,13 +35,13 @@ class TodayActivity : AppCompatActivity() {
             }
         })
 
-        val availableHabits = habitManager.getAvailableHabits();
-        val dueHabits = habitManager.getDueHabits();
+//        val availableHabits = habitManager.getAvailableHabits();
+//        val dueHabits = habitManager.getDueHabits();
 
-        val todayAdapter = TodayAdapter(this, availableHabits, dueHabits);
+//        val todayAdapter = TodayAdapter(this, availableHabits, dueHabits);
 
         val listView = findViewById(R.id.listView) as ListView
-        listView.setAdapter(todayAdapter);
+//        listView.setAdapter(todayAdapter);
 
     }
 
