@@ -1,6 +1,7 @@
 package com.zacharytamas.often.models.managers
 
 import android.content.Context
+import com.orm.SugarRecord
 import com.zacharytamas.often.models.Habit
 import com.zacharytamas.often.utils.Data
 import org.joda.time.DateTime
@@ -37,5 +38,10 @@ class HabitManager(context: Context) {
 //        mRealm.beginTransaction()
 //        Habits.completeHabit(habit)
 //        mRealm.commitTransaction()
+    }
+
+    fun getAvailableHabits(): List<Habit> {
+        // TODO This should actually query for habits that are available
+        return SugarRecord.listAll(Habit::class.java)
     }
 }

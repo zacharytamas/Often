@@ -1,6 +1,8 @@
 package com.zacharytamas.often.adapters
 
+import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,11 +12,13 @@ import android.widget.TextView
 import com.github.pavlospt.CircleView
 import com.zacharytamas.often.R
 import com.zacharytamas.often.models.Habit
+import com.zacharytamas.often.utils.Dates
+import org.joda.time.DateTime
 
 /**
  * Created by zacharytamas on 10/24/15.
  */
-class TodayAdapter : RecyclerView.Adapter<TodayAdapter.RowViewHolder>() {
+class TodayAdapter(val context: Context) : RecyclerView.Adapter<TodayAdapter.RowViewHolder>() {
 
     private var rows: MutableList<Row> = arrayListOf();
 
@@ -32,6 +36,11 @@ class TodayAdapter : RecyclerView.Adapter<TodayAdapter.RowViewHolder>() {
         // TODO Go through habits and create lists of Overdue and Available
 
         this.rows.add(Row(TYPE_HEADER, "Available"));
+
+        for (habit in habits) {
+            this.rows.add(Row(TYPE_HABIT, habit))
+        }
+
         notifyDataSetChanged();
     }
 
@@ -54,7 +63,7 @@ class TodayAdapter : RecyclerView.Adapter<TodayAdapter.RowViewHolder>() {
         }
 
         if (view != null) {
-            holder = RowViewHolder(view, viewType);
+            holder = RowViewHolder(view, viewType, context);
         }
 
         return holder
@@ -72,7 +81,7 @@ class TodayAdapter : RecyclerView.Adapter<TodayAdapter.RowViewHolder>() {
         constructor(type: Int, habit: Habit) : this(type, null, habit);
     }
 
-    public class RowViewHolder(val view: View, val rowType: Int) : RecyclerView.ViewHolder(view) {
+    public class RowViewHolder(val view: View, val rowType: Int, val context: Context) : RecyclerView.ViewHolder(view) {
 
         var mainView: LinearLayout? = null;
         var doneView: RelativeLayout? = null;
@@ -89,6 +98,35 @@ class TodayAdapter : RecyclerView.Adapter<TodayAdapter.RowViewHolder>() {
             when (row.type) {
                 TYPE_HEADER -> {
                     sectionHeader!!.text = row.title
+                }
+                TYPE_HABIT -> {
+                    val habit = row.habit!!
+                    habitTitle?.text = habit.title
+                    if (habit.lastCompletedAt != null) {
+                        lastCompletedTextView?.text = view.context.getString(R.string.item_habit_last_completed) +
+                                            DateUtils.getRelativeTimeSpanString(habit.lastCompletedAt!!.time,
+                                            DateTime().millis,
+                                            DateUtils.SECOND_IN_MILLIS).toString()
+                    }
+
+                    //
+                    // Circle
+                    //
+
+                    val circleColor: Int?
+
+                    if (habit.required) {
+                        if (Dates.isOverdue(habit)) {
+                            circleColor = context.resources.getColor(R.color.red)
+                        } else {
+                            circleColor = context.resources.getColor(R.color.green)
+                        }
+                        circleView?.setTitleText(Integer.toString(habit.streakValue))
+                    } else {
+                        circleColor = context.resources.getColor(R.color.greyDark)
+                    }
+
+                    circleView?.setFillColor(circleColor)
                 }
             }
         }

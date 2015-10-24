@@ -105,33 +105,10 @@ import java.util.ArrayList
 //
 //            var convertedDate = ""
 //
-//            if (habit.lastCompletedAt != null) {
-//                convertedDate = view.context.getString(R.string.item_habit_last_completed) +
-//                        DateUtils.getRelativeTimeSpanString(habit.lastCompletedAt!!.time,
-//                        DateTime().millis,
-//                        DateUtils.SECOND_IN_MILLIS).toString()
-//            }
 //
 //            viewHolder.lastCompletedTextView?.text = convertedDate
 //
-//            //
-//            // Circle
-//            //
-//
-//            val circleColor: Int?
-//
-//            if (habit.required) {
-//                if (Dates.isOverdue(habit)) {
-//                    circleColor = context.resources.getColor(R.color.red)
-//                } else {
-//                    circleColor = context.resources.getColor(R.color.green)
-//                }
-//                viewHolder.circleView?.setTitleText(Integer.toString(habit.streakValue))
-//            } else {
-//                circleColor = context.resources.getColor(R.color.greyDark)
-//            }
-//
-//            viewHolder.circleView?.setFillColor(circleColor)
+
 //        } else if (row.type == TYPE_HEADER) {
 //            viewHolder.sectionHeader?.text = row.title
 //        }

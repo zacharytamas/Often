@@ -4,7 +4,7 @@ import com.orm.SugarRecord
 import com.zacharytamas.often.utils.Dates
 import java.util.*
 
-public class Habit: SugarRecord<Habit>() {
+class Habit() : SugarRecord<Habit>() {
 
     var title: String = ""
     var required: Boolean = true
@@ -14,7 +14,7 @@ public class Habit: SugarRecord<Habit>() {
     var repeatScalar: Int = 0
     var repeatWeekdays: Byte = 0
 
-    var createdAt: Date? = null
+    var createdAt: Date? = Date()
     var availableAt: Date? = null
     var lastCompletedAt: Date? = null
     var dueAtSpecificTime: Boolean = false
