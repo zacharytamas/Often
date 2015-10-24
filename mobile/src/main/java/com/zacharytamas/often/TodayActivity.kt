@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.View
 import android.view.Menu
@@ -39,11 +41,11 @@ class TodayActivity : AppCompatActivity() {
 //        val availableHabits = habitManager.getAvailableHabits();
 //        val dueHabits = habitManager.getDueHabits();
 
-//        val todayAdapter = TodayAdapter(this, availableHabits, dueHabits);
         val todayAdapter = TodayAdapter();
 
-        val listView = findViewById(R.id.listView) as ListView
-//        listView.setAdapter(todayAdapter);
+        val recyclerView = findViewById(R.id.recyclerView) as RecyclerView
+        recyclerView.setLayoutManager(LinearLayoutManager(this));
+        recyclerView.setAdapter(todayAdapter);
 
     }
 
