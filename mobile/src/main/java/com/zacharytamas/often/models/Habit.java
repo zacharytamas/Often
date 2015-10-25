@@ -11,7 +11,7 @@ import java.util.Date;
 public class Habit extends SugarRecord<Habit> {
     public String title = "";
     public Boolean required = true;
-    public Byte repeatType = 0;
+    public byte repeatType = 0;
     public int repeatUnit = 0;
     public int repeatScalar = 0;
     public Byte repeatWeekdays = 0;
@@ -22,11 +22,11 @@ public class Habit extends SugarRecord<Habit> {
     public Date dueAt;
     public int streakValue = 0;
 
-    Boolean getRepeatOnWeekday(int day) {
+    public Boolean getRepeatsOnWeekday(int day) {
         return Dates.getBitForWeekday(this.repeatWeekdays, day);
     }
 
-    void setRepeatOnWeekday(int day, Boolean repeats) {
+    public void setRepeatsOnWeekday(int day, Boolean repeats) {
         this.repeatWeekdays = Dates.setBitForWeekday(this.repeatWeekdays, day, repeats);
     }
 }

@@ -41,9 +41,9 @@ class NextAvailableAtTest : DatesTest() {
         val habit = this.habit!!
         habit.repeatType = RepeatType.WEEKLY
         habit.repeatScalar = 1
-        habit.setRepeatOnWeekday(DateTimeConstants.MONDAY, true)
-        habit.setRepeatOnWeekday(DateTimeConstants.SATURDAY, true)
-        habit.setRepeatOnWeekday(DateTimeConstants.SUNDAY, true)
+        habit.setRepeatsOnWeekday(DateTimeConstants.MONDAY, true)
+        habit.setRepeatsOnWeekday(DateTimeConstants.SATURDAY, true)
+        habit.setRepeatsOnWeekday(DateTimeConstants.SUNDAY, true)
 
         // Next should be Saturday
         val next = Dates.nextAvailableAt(habit, now!!)
