@@ -11,6 +11,7 @@ import android.view.View;
 
 import com.zacharytamas.often.adapters.TodayAdapter;
 import com.zacharytamas.often.models.managers.HabitManager;
+import com.zacharytamas.often.utils.Data;
 
 /**
  * Created by zacharytamas on 10/25/15.
@@ -26,7 +27,7 @@ public class TodayActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         // TODO Add this back
-//        Data.addTestData(this);
+        Data.addTestData(this, false);
 
         HabitManager habitManager = new HabitManager(this);
 
