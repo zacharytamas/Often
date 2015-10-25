@@ -1,50 +1,45 @@
-package com.zacharytamas.often.utils
+package com.zacharytamas.often.utils;
 
-import android.content.Context
-import android.util.Log
-import com.orm.SugarRecord
-import com.zacharytamas.often.models.*
-import org.joda.time.DateTime
-import org.joda.time.DateTimeConstants
-import java.io.File
-import java.util.*
+import android.content.Context;
+
+import com.zacharytamas.often.models.Habit;
+import com.zacharytamas.often.models.RepeatType;
+import com.zacharytamas.often.models.RepeatUnit;
+
+import org.joda.time.DateTime;
 
 /**
- * Created by zacharytamas on 10/9/15.
+ * Created by zacharytamas on 10/25/15.
  */
-object Data {
-
-    fun addTestData(context: Context, deleteFirst: Boolean = true) {
-
-        var habitCount: Int
+public class Data {
+    public static void addTestData(Context context, boolean deleteFirst) {
 
         if (deleteFirst) {
-            SugarRecord.deleteAll(Habit::class.java)
-            habitCount = 0
+            Habit.deleteAll(Habit.class);
         }
 
-        habitCount = SugarRecord.listAll(Habit::class.java).size;
+        int habitCount = Habit.listAll(Habit.class).size();
 
         if (habitCount == 0) {
-            val habit1 = Habit()
-            habit1.title = "Brush teeth before bed"
-            habit1.repeatType = RepeatType.PERIODICAL
-            habit1.repeatUnit = RepeatUnit.DAILY
-            habit1.repeatScalar = 1
-            habit1.lastCompletedAt = DateTime().minusDays(1).toDate()
-            habit1.availableAt = DateTime().minusHours(6).toDate()
-            habit1.dueAt = DateTime().plusDays(1).toDate()
-            habit1.required = true
-            habit1.streakValue = 20
-            habit1.save()
+            Habit habit1 = new Habit();
+            habit1.title = "Brush teeth before bed";
+            habit1.repeatType = RepeatType.PERIODICAL;
+            habit1.repeatUnit = RepeatUnit.DAILY;
+            habit1.repeatScalar = 1;
+            habit1.lastCompletedAt = new DateTime().minusDays(1).toDate();
+            habit1.availableAt = new DateTime().minusHours(6).toDate();
+            habit1.dueAt = new DateTime().plusDays(1).toDate();
+            habit1.required = true;
+            habit1.streakValue = 20;
+            habit1.save();
 
-            val habit2 = Habit()
-            habit2.title = "Wash face before bed"
-            habit2.repeatType = RepeatType.PERIODICAL
-            habit2.lastCompletedAt = DateTime().minusDays(20).toDate()
-            habit2.availableAt = DateTime().minusDays(19).toDate()
-            habit2.save()
-//
+            Habit habit2 = new Habit();
+            habit2.title = "Wash face before bed";
+            habit2.repeatType = RepeatType.PERIODICAL;
+            habit2.lastCompletedAt = new DateTime().minusDays(20).toDate();
+            habit2.availableAt = new DateTime().minusDays(19).toDate();
+            habit2.save();
+
 //            val habit3 = realm.createObject(Habit::class.java)
 //            habit3.title = "Have car washed"
 //            habit3.repeatType = RepeatType.PERIODICAL
@@ -81,10 +76,8 @@ object Data {
 //            habit6.lastCompletedAt = Dates.createDate(2014, 9, 1)
 //            habit6.dueAt = Dates.createDate(2014, 9, 2)
 //            habit6.required = true
-//
-//            realm.commitTransaction()
         }
-
     }
-    
+
+
 }
