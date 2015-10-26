@@ -11,10 +11,10 @@ import java.util.Date;
 public class Habit extends SugarRecord<Habit> {
     public String title = "";
     public Boolean required = true;
-    public byte repeatType = 0;
+    public int repeatType = 0;
     public int repeatUnit = 0;
     public int repeatScalar = 0;
-    public Byte repeatWeekdays = 0;
+    public int repeatWeekdays = 0;
     public Date createdAt = new Date();
     public Date availableAt;
     public Date lastCompletedAt;
