@@ -16,11 +16,11 @@ import java.util.GregorianCalendar;
  */
 public class Dates {
 
-    public static Boolean getBitForWeekday(Byte mask, int weekday) {
+    public static Boolean getBitForWeekday(int mask, int weekday) {
         return (mask & (1 << (weekday - 1))) > 0;
     }
 
-    public static Byte setBitForWeekday(Byte mask, int weekday, Boolean repeat) {
+    public static Byte setBitForWeekday(int mask, int weekday, Boolean repeat) {
         int weekdayBit = weekday - 1;
         if (repeat) {  // set the bit
             return (byte) (mask | (1 << weekdayBit));
