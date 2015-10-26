@@ -29,4 +29,8 @@ public class Habit extends SugarRecord<Habit> {
     public void setRepeatsOnWeekday(int day, Boolean repeats) {
         this.repeatWeekdays = Dates.setBitForWeekday(this.repeatWeekdays, day, repeats);
     }
+
+    public void completeTask() {
+        this.availableAt = Dates.nextAvailableAt(this, new Date());
+    }
 }
