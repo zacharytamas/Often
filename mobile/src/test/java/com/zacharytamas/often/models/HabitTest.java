@@ -61,7 +61,7 @@ public class HabitTest {
     public void test_completeTask() {
         // The main logic of determining when the next occurrence is scheduled for is
         // covered by the tests for the Dates utils. To avoid testing the same stuff
-        // really, I just make sure that the completeTask() method sets that value
+        // really, I just make sure that the completeHabit() method sets that value
         // appropriately and it's what we expect. Not fully exhaustive of selecting
         // all the different repeatTypes, repeatUnits, repeatScalars, etc.
 
@@ -75,7 +75,7 @@ public class HabitTest {
         assertThat(habit.availableAt, is(not(next)));
         assertThat(habit.lastCompletedAt, is(not(now)));
 
-        habit.completeTask();
+        habit.completeHabit();
 
         assertThat(habit.availableAt, is(next));
         assertThat(habit.lastCompletedAt, is(now));
