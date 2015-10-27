@@ -73,10 +73,12 @@ public class HabitTest {
 
         Date next = Dates.nextAvailableAt(habit, now);
         assertThat(habit.availableAt, is(not(next)));
+        assertThat(habit.lastCompletedAt, is(not(now)));
 
         habit.completeTask();
 
         assertThat(habit.availableAt, is(next));
+        assertThat(habit.lastCompletedAt, is(now));
 
     }
 

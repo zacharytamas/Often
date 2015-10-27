@@ -3,6 +3,8 @@ package com.zacharytamas.often.models;
 import com.orm.SugarRecord;
 import com.zacharytamas.often.utils.Dates;
 
+import org.joda.time.DateTime;
+
 import java.util.Date;
 
 /**
@@ -15,7 +17,7 @@ public class Habit extends SugarRecord<Habit> {
     public int repeatUnit = 0;
     public int repeatScalar = 0;
     public int repeatWeekdays = 0;
-    public Date createdAt = new Date();
+    public Date createdAt = DateTime.now().toDate();
     public Date availableAt;
     public Date lastCompletedAt;
     public Boolean dueAtSpecificTime = false;
@@ -31,6 +33,6 @@ public class Habit extends SugarRecord<Habit> {
     }
 
     public void completeTask() {
-        this.availableAt = Dates.nextAvailableAt(this, new Date());
+        this.availableAt = Dates.nextAvailableAt(this, DateTime.now().toDate());
     }
 }
