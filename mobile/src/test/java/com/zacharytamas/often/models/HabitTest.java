@@ -11,6 +11,7 @@ import org.junit.Test;
 import java.util.Calendar;
 import java.util.Date;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
@@ -28,7 +29,10 @@ public class HabitTest {
         DateTimeUtils.setCurrentMillisFixed(now.getTime());
         this.habit = new Habit();
         this.habit.availableAt = now;
-        this.habit.dueAt = new Date();
+        this.habit.dueAt = DateTime.now().toDate();
+        habit.repeatType = RepeatType.PERIODICAL;
+        habit.repeatScalar = 1;
+        habit.repeatUnit = RepeatUnit.DAILY;
     }
 
     private Date getDate(int year, int month, int date) {
@@ -67,9 +71,7 @@ public class HabitTest {
 
         this.setUp();
 
-        habit.repeatType = RepeatType.PERIODICAL;
         habit.repeatScalar = 2;
-        habit.repeatUnit = RepeatUnit.DAILY;
 
         Date next = Dates.nextAvailableAt(habit, now);
         assertThat(habit.availableAt, is(not(next)));
@@ -80,6 +82,33 @@ public class HabitTest {
         assertThat(habit.availableAt, is(next));
         assertThat(habit.lastCompletedAt, is(now));
 
+    }
+
+    @Test
+    public void test_completeTask_streaks() {
+        this.setUp();
+        // The primary purpose of this test is to ensure that Streaks are calculated
+        // correctly when completing a task.
+
+        assertThat(habit.streakValue, is(equalTo(0)));
+
+        // At first this Habit is not set as required, so it shouldn't do anything with the streak.
+        // Let's test that it doesn't change when you complete it.
+
+        habit.completeHabit();
+
+        assertThat(habit.streakValue, is(equalTo(0)));
+
+        // Sanity check. Since this is configured in setup, here assert that it is what
+        // this test expects. Otherwise if it is changed in setup() in the future it
+        // would break this test and we wouldn't know why.
+        assertThat(habit.dueAt, is(now));
+
+        habit.required = true;
+        habit.completeHabit();
+
+        // The streak should increase if completed before or on the day it is due.
+        assertThat(habit.streakValue, is(equalTo(1)));
     }
 
 }

@@ -12,7 +12,7 @@ import java.util.Date;
  */
 public class Habit extends SugarRecord<Habit> {
     public String title = "";
-    public Boolean required = true;
+    public Boolean required = false;
     public int repeatType = 0;
     public int repeatUnit = 0;
     public int repeatScalar = 0;
@@ -36,5 +36,14 @@ public class Habit extends SugarRecord<Habit> {
         Date now = DateTime.now().toDate();
         this.availableAt = Dates.nextAvailableAt(this, now);
         this.lastCompletedAt = now;
+
+        if (required) {
+            // If the Habit is due now or after now, this completion will increase the streakValue.
+            if (dueAt.after(now) || dueAt.equals(now)) {
+                streakValue += 1;
+            } else {  // If not, they broke the streak, reset to 0.
+                streakValue = 0;
+            }
+        }
     }
 }
