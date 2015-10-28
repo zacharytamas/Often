@@ -29,7 +29,6 @@ public class HabitTest {
         DateTimeUtils.setCurrentMillisFixed(now.getTime());
         this.habit = new Habit();
         this.habit.availableAt = now;
-        this.habit.dueAt = DateTime.now().toDate();
         habit.repeatType = RepeatType.PERIODICAL;
         habit.repeatScalar = 1;
         habit.repeatUnit = RepeatUnit.DAILY;
@@ -74,6 +73,8 @@ public class HabitTest {
         habit.repeatScalar = 2;
 
         Date next = Dates.nextAvailableAt(habit, now);
+        // Sanity. Assert that availableAt is not currently the next date so that
+        // later when we assert that it is we know the change occurred.
         assertThat(habit.availableAt, is(not(next)));
         assertThat(habit.lastCompletedAt, is(not(now)));
 
@@ -84,8 +85,37 @@ public class HabitTest {
 
     }
 
+    /**
+     * Test that the dueAt property is appropriately updated when completing
+     * a Habit that is required.
+     */
     @Test
-    public void test_completeTask_streaks() {
+    public void test_completeHabit_dueAt() {
+        this.setUp();
+
+        assertThat(habit.dueAt, is(equalTo(null)));
+
+        ////////////////////////////////////////////////////////////////
+        // Case 1: The Habit is not required
+        // Expected: dueAt should never be set and remain null
+        ////////////////////////////////////////////////////////////////
+        habit.required = false;
+        habit.completeHabit();
+        // Assert that it is *still* equal to null.
+        assertThat(habit.dueAt, is(equalTo(null)));
+
+        ////////////////////////////////////////////////////////////////
+        // Case 2: The Habit is required
+        // Expected: dueAt should get updated according to the nextDueAt() method.
+        ////////////////////////////////////////////////////////////////
+        habit.required = true;
+        Date expectedDueAt = Dates.nextDueAt(habit, DateTime.now().toDate());
+        habit.completeHabit();
+        assertThat(habit.dueAt, is(equalTo(expectedDueAt)));
+    }
+
+    @Test
+    public void test_completeHabit_streaks() {
         this.setUp();
         // The primary purpose of this test is to ensure that Streaks are calculated
         // correctly when completing a task.
@@ -102,11 +132,7 @@ public class HabitTest {
         // Expected: Completing it now will increase the existing streak.
         ////////////////////////////////////////////////////////////////
 
-        // Sanity check. Since this is configured in setup, here assert that it is what
-        // this test expects. Otherwise if it is changed in setup() in the future it
-        // would break this test and we wouldn't know why.
-        assertThat(habit.dueAt, is(now));
-
+        habit.dueAt = DateTime.now().toDate();
         habit.required = true;
         habit.completeHabit();
 

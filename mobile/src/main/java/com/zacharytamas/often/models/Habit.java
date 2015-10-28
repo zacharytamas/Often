@@ -38,12 +38,18 @@ public class Habit extends SugarRecord<Habit> {
         this.lastCompletedAt = now;
 
         if (required) {
+            // TODO Rethink this. Perhaps the dueAt should be set when its created.
+            if (dueAt == null) {
+                streakValue = 1;
             // If the Habit is due now or after now, this completion will increase the streakValue.
-            if (dueAt.after(now) || dueAt.equals(now)) {
+            } else if (dueAt.after(now) || dueAt.equals(now)) {
                 streakValue += 1;
-            } else {  // If not, they broke the streak, reset to 0.
+            // If not, they broke the streak, reset to 0.
+            } else {
                 streakValue = 0;
             }
+
+            dueAt = Dates.nextDueAt(this, now);
         }
     }
 }
