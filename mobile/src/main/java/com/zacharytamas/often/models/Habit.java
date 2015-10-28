@@ -33,6 +33,8 @@ public class Habit extends SugarRecord<Habit> {
     }
 
     public void completeHabit() {
-        this.availableAt = Dates.nextAvailableAt(this, DateTime.now().toDate());
+        Date now = DateTime.now().toDate();
+        this.availableAt = Dates.nextAvailableAt(this, now);
+        this.lastCompletedAt = now;
     }
 }
