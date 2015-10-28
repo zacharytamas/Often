@@ -62,7 +62,7 @@ public class HabitTest {
     }
 
     @Test
-    public void test_completeTask() {
+    public void test_completeTask_nextAvailableAt() {
         // The main logic of determining when the next occurrence is scheduled for is
         // covered by the tests for the Dates utils. To avoid testing the same stuff
         // really, I just make sure that the completeHabit() method sets that value
@@ -94,10 +94,13 @@ public class HabitTest {
 
         // At first this Habit is not set as required, so it shouldn't do anything with the streak.
         // Let's test that it doesn't change when you complete it.
-
         habit.completeHabit();
-
         assertThat(habit.streakValue, is(equalTo(0)));
+
+        ////////////////////////////////////////////////////////////////
+        // Case 1: The Habit is due today and required.
+        // Expected: Completing it now will increase the existing streak.
+        ////////////////////////////////////////////////////////////////
 
         // Sanity check. Since this is configured in setup, here assert that it is what
         // this test expects. Otherwise if it is changed in setup() in the future it
@@ -109,6 +112,18 @@ public class HabitTest {
 
         // The streak should increase if completed before or on the day it is due.
         assertThat(habit.streakValue, is(equalTo(1)));
+
+        ////////////////////////////////////////////////////////////////
+        // Case 2: The Habit has a streak but was due yesterday.
+        // Expected: Completing it now will reset the streak to 0 because it's overdue.
+        ////////////////////////////////////////////////////////////////
+
+        habit.streakValue = 5;
+        habit.dueAt = DateTime.now().minusDays(1).toDate();
+
+        habit.completeHabit();
+        // Should have been reset because it was completed late.
+        assertThat(habit.streakValue, is(equalTo(0)));
     }
 
 }
