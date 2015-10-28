@@ -62,7 +62,7 @@ public class HabitTest {
     }
 
     @Test
-    public void test_completeTask_nextAvailableAt() {
+    public void test_completeHabit_nextAvailableAt() {
         // The main logic of determining when the next occurrence is scheduled for is
         // covered by the tests for the Dates utils. To avoid testing the same stuff
         // really, I just make sure that the completeHabit() method sets that value
