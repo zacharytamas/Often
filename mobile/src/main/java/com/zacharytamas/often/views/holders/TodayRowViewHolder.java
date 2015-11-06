@@ -62,9 +62,9 @@ public class TodayRowViewHolder extends RecyclerView.ViewHolder {
                 mHabitTitle.setText(habit.title);
 
                 if (habit.lastCompletedAt != null) {
-                    mLastCompletedTextView.setText(mContext.getString(R.string.item_habit_last_completed) +
+                    mLastCompletedTextView.setText(String.format("%s%s", mContext.getString(R.string.item_habit_last_completed),
                             DateUtils.getRelativeTimeSpanString(habit.lastCompletedAt.getTime(),
-                                    new DateTime().getMillis(), DateUtils.SECOND_IN_MILLIS));
+                            new DateTime().getMillis(), DateUtils.SECOND_IN_MILLIS)));
                 }
 
                 //

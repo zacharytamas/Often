@@ -26,7 +26,6 @@ public class TodayActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // TODO Add this back
         Data.addTestData(this, false);
 
         HabitManager habitManager = new HabitManager(this);
