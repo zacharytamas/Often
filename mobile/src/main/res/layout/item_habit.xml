@@ -66,13 +66,6 @@
                 android:layout_height="wrap_content"
                 tools:text="Last completed"
                 />
-
         </LinearLayout>
-
-
-
     </LinearLayout>
-
-
-
 </RelativeLayout>

@@ -52,6 +52,10 @@ public class TodayRowViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
+    public LinearLayout getMainView() {
+        return mMainView;
+    }
+
     public void updateView(TodayAdapter.Row row) {
         switch (row.type) {
             case TodayAdapter.TYPE_HEADER:
@@ -59,6 +63,7 @@ public class TodayRowViewHolder extends RecyclerView.ViewHolder {
                 break;
             case TodayAdapter.TYPE_HABIT:
                 Habit habit = row.habit;
+                mMainView.setTranslationX(0);
                 mHabitTitle.setText(habit.title);
 
                 if (habit.lastCompletedAt != null) {

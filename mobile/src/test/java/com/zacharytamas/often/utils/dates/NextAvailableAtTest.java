@@ -23,15 +23,15 @@ public class NextAvailableAtTest extends DatesTest {
         habit.repeatScalar = 2;
 
         // Case 1: repeatUnit is daily
-        habit.repeatUnit = Calendar.DATE;
+        habit.repeatUnit = RepeatUnit.DAILY;
         assertSameDay(Dates.nextAvailableAt(habit, now), getDate(1992, 2, 2));
 
         // Case 2: repeatUnit is monthly
-        habit.repeatUnit = Calendar.MONTH;
+        habit.repeatUnit = RepeatUnit.MONTHLY;
         assertSameDay(Dates.nextAvailableAt(habit, now), getDate(1992, 3, 31));
 
         // Case 3: repeatUnit is yearly
-        habit.repeatUnit = Calendar.YEAR;
+        habit.repeatUnit = RepeatUnit.YEARLY;
         assertSameDay(Dates.nextAvailableAt(habit, now), getDate(1994, 1, 31));
 
         // Case 4: repeatUnit is weekly

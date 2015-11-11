@@ -13,14 +13,13 @@ import java.util.Date;
 public class Habit extends SugarRecord<Habit> {
     public String title = "";
     public Boolean required = false;
-    public int repeatType = 0;
-    public int repeatUnit = 0;
+    public int repeatType = RepeatType.PERIODICAL;
+    public int repeatUnit = RepeatUnit.DAILY;
     public int repeatScalar = 0;
     public int repeatWeekdays = 0;
     public Date createdAt = DateTime.now().toDate();
     public Date availableAt;
     public Date lastCompletedAt;
-    public Boolean dueAtSpecificTime = false;
     public Date dueAt;
     public int streakValue = 0;
 

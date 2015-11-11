@@ -2,6 +2,7 @@ package com.zacharytamas.often.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,6 +57,18 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayRowViewHolder> {
     @Override
     public int getItemViewType(int position) {
         return this.rows.get(position).type;
+    }
+
+    public void onHabitCompleted(int itemPosition) {
+        Row row = rows.get(itemPosition);
+        if (row.type == TYPE_HABIT) {
+            Habit habit = row.habit;
+            habit.completeHabit();
+            habit.save();
+
+            rows.remove(itemPosition);
+            notifyItemRemoved(itemPosition);
+        }
     }
 
     public void refill(List<Habit> habits) {

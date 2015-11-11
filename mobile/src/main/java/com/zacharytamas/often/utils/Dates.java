@@ -9,7 +9,6 @@ import org.joda.time.DateTimeConstants;
 import org.joda.time.Period;
 
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 /**
  * Created by zacharytamas on 10/25/15.
@@ -46,13 +45,13 @@ public class Dates {
                 Period period;
 
                 switch (habit.repeatUnit) {
-                    case GregorianCalendar.DATE:
+                    case RepeatUnit.DAILY:
                         period = Period.days(repeatScalar);
                         break;
-                    case GregorianCalendar.MONTH:
+                    case RepeatUnit.MONTHLY:
                         period = Period.months(repeatScalar);
                         break;
-                    case GregorianCalendar.YEAR:
+                    case RepeatUnit.YEARLY:
                         period = Period.years(repeatScalar);
                         break;
                     case RepeatUnit.WEEKLY:
@@ -69,6 +68,7 @@ public class Dates {
                         .toDate();
 
             case RepeatType.WEEKLY:
+                // TODO This would cause an infinite loop if no weekdays are set.
                 do {
                     dt = dt.plus(Period.days(1));
 
