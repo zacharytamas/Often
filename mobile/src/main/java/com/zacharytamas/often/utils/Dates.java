@@ -68,6 +68,7 @@ public class Dates {
                         .toDate();
 
             case RepeatType.WEEKLY:
+                // TODO This would cause an infinite loop if no weekdays are set.
                 do {
                     dt = dt.plus(Period.days(1));
 
