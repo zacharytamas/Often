@@ -2,7 +2,11 @@ package com.zacharytamas.often.models.managers;
 
 import android.content.Context;
 
+import com.orm.query.Condition;
+import com.orm.query.Select;
 import com.zacharytamas.often.models.Habit;
+
+import org.joda.time.DateTime;
 
 import java.util.List;
 
@@ -18,6 +22,8 @@ public class HabitManager {
     }
 
     public List<Habit> getAvailableHabits() {
-        return Habit.listAll(Habit.class);
+        return Select.from(Habit.class)
+                .where(Condition.prop("available_at").lt(new DateTime().toDate().getTime())
+                ).list();
     }
 }
