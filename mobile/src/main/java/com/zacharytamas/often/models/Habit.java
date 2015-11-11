@@ -20,7 +20,6 @@ public class Habit extends SugarRecord<Habit> {
     public Date createdAt = DateTime.now().toDate();
     public Date availableAt;
     public Date lastCompletedAt;
-    public Boolean dueAtSpecificTime = false;
     public Date dueAt;
     public int streakValue = 0;
 
