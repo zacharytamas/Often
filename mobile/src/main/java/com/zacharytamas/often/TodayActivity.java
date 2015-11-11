@@ -1,5 +1,6 @@
 package com.zacharytamas.often;
 
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,9 +12,12 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 
 import com.zacharytamas.often.adapters.TodayAdapter;
+import com.zacharytamas.often.models.Habit;
 import com.zacharytamas.often.models.managers.HabitManager;
 import com.zacharytamas.often.utils.Data;
 import com.zacharytamas.often.views.holders.TodayRowViewHolder;
+
+import java.util.List;
 
 /**
  * Created by zacharytamas on 10/25/15.
@@ -63,13 +67,46 @@ public class TodayActivity extends AppCompatActivity {
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 todayAdapter.onHabitCompleted(viewHolder.getAdapterPosition());
+                viewHolder.itemView.setVisibility(View.GONE);
+            }
+
+            private View getDraggableView(RecyclerView.ViewHolder viewHolder) {
+                return ((TodayRowViewHolder) viewHolder).getMainView();
+            }
+
+            @Override
+            public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+                super.clearView(recyclerView, viewHolder);
+
+                if (viewHolder.getAdapterPosition() > 0) {
+                    viewHolder.itemView.setAlpha(1);
+                    getDraggableView(viewHolder).setTranslationX(0);
+                }
+            }
+
+            @Override
+            public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+                if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+                    // Fade out the view as it is swiped out of the parent's bounds
+                    final float alpha = 1 - Math.abs(dX) / (float) viewHolder.itemView.getWidth();
+                    viewHolder.itemView.setAlpha(alpha);
+
+                    if (viewHolder.getAdapterPosition() > 0) {
+                        getDefaultUIUtil().onDraw(c, recyclerView, getDraggableView(viewHolder), dX, dY, actionState,
+                                isCurrentlyActive);
+                    }
+                } else {
+                    super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+                }
             }
         };
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
-        todayAdapter.refill(habitManager.getAvailableHabits());
+        List<Habit> availableHabits = habitManager.getAvailableHabits();
+
+        todayAdapter.refill(availableHabits);
 
     }
 }

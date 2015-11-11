@@ -60,11 +60,11 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayRowViewHolder> {
     }
 
     public void onHabitCompleted(int itemPosition) {
-        Log.i("TodayAdapter", "Habit completed! " + itemPosition);
         Row row = rows.get(itemPosition);
         if (row.type == TYPE_HABIT) {
             Habit habit = row.habit;
             habit.completeHabit();
+            habit.save();
 
             rows.remove(itemPosition);
             notifyItemRemoved(itemPosition);
