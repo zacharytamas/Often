@@ -41,7 +41,7 @@ public class TodayActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(v, "Should launch Add Habit Activity", Snackbar.LENGTH_LONG);
+                Snackbar.make(v, "Should launch Add Habit Activity", Snackbar.LENGTH_LONG).show();
             }
         });
 
