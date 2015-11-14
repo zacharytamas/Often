@@ -1,4 +1,4 @@
-package com.zacharytamas.often;
+package com.zacharytamas.often.ui.fragments;
 
 import android.graphics.Canvas;
 import android.support.v4.app.Fragment;
@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.zacharytamas.often.R;
 import com.zacharytamas.often.adapters.TodayAdapter;
 import com.zacharytamas.often.models.Habit;
 import com.zacharytamas.often.models.managers.HabitManager;
