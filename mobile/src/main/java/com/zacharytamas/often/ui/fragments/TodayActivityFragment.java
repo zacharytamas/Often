@@ -1,16 +1,16 @@
-package com.zacharytamas.often;
+package com.zacharytamas.often.ui.fragments;
 
 import android.graphics.Canvas;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
+import com.zacharytamas.often.R;
 import com.zacharytamas.often.adapters.TodayAdapter;
 import com.zacharytamas.often.models.Habit;
 import com.zacharytamas.often.models.managers.HabitManager;
@@ -20,34 +20,25 @@ import com.zacharytamas.often.views.holders.TodayRowViewHolder;
 import java.util.List;
 
 /**
- * Created by zacharytamas on 10/25/15.
+ * A placeholder fragment containing a simple view.
  */
-public class TodayActivity extends AppCompatActivity {
+public class TodayActivityFragment extends Fragment {
+
+    public TodayActivityFragment() {
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_today);
-        this.setTitle(getString(R.string.activity_title_today));
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_today, container, false);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        Data.addTestData(getActivity(), false);
 
-        Data.addTestData(this, false);
+        HabitManager habitManager = new HabitManager(getActivity());
 
-        HabitManager habitManager = new HabitManager(this);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Snackbar.make(v, "Should launch Add Habit Activity", Snackbar.LENGTH_LONG).show();
-            }
-        });
-
-        final TodayAdapter todayAdapter = new TodayAdapter(this);
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        final TodayAdapter todayAdapter = new TodayAdapter(getActivity());
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(todayAdapter);
 
         ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
@@ -108,5 +99,6 @@ public class TodayActivity extends AppCompatActivity {
 
         todayAdapter.refill(availableHabits);
 
+        return view;
     }
 }
