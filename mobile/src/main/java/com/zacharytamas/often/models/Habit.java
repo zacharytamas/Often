@@ -15,7 +15,7 @@ public class Habit extends SugarRecord<Habit> {
     public Boolean required = false;
     public int repeatType = RepeatType.PERIODICAL;
     public int repeatUnit = RepeatUnit.DAILY;
-    public int repeatScalar = 0;
+    public int repeatScalar = 1;
     public int repeatWeekdays = 0;
     public Date createdAt = DateTime.now().toDate();
     public Date availableAt;
