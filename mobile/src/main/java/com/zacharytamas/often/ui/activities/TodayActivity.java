@@ -53,6 +53,24 @@ public class TodayActivity extends AppCompatActivity {
         adapter.addFragment(new TodayHabitListFragment(), getString(R.string.tab_title_today));
         adapter.addFragment(new AllHabitsListFragment(), getString(R.string.tab_title_all_habits));
 
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                HabitListBaseFragment fragment = (HabitListBaseFragment) adapter.getItem(position);
+                fragment.update();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
         viewPager.setAdapter(adapter);
     }
 }
