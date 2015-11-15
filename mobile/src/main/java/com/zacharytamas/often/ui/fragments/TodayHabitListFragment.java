@@ -1,8 +1,8 @@
 package com.zacharytamas.often.ui.fragments;
 
 import android.graphics.Canvas;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -14,25 +14,25 @@ import com.zacharytamas.often.R;
 import com.zacharytamas.often.adapters.TodayAdapter;
 import com.zacharytamas.often.models.Habit;
 import com.zacharytamas.often.models.managers.HabitManager;
-import com.zacharytamas.often.utils.Data;
 import com.zacharytamas.often.views.holders.TodayRowViewHolder;
 
 import java.util.List;
 
-/**
- * A placeholder fragment containing a simple view.
- */
-public class TodayActivityFragment extends Fragment {
 
-    public TodayActivityFragment() {
+/**
+ *
+ */
+public class TodayHabitListFragment extends Fragment {
+
+    public TodayHabitListFragment() {
+        // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_today, container, false);
 
-        Data.addTestData(getActivity(), false);
+        View view = inflater.inflate(R.layout.fragment_today_habit_list, container, false);
 
         HabitManager habitManager = new HabitManager(getActivity());
 
@@ -101,4 +101,5 @@ public class TodayActivityFragment extends Fragment {
 
         return view;
     }
+
 }
