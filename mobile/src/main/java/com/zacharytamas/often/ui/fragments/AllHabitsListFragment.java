@@ -1,32 +1,31 @@
 package com.zacharytamas.often.ui.fragments;
 
+
 import android.os.Bundle;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.zacharytamas.often.R;
 
-
 /**
- *
+ * A simple {@link Fragment} subclass.
  */
-public class TodayHabitListFragment extends HabitListBaseFragment {
+public class AllHabitsListFragment extends HabitListBaseFragment {
 
-    public TodayHabitListFragment() {
+
+    public AllHabitsListFragment() {
         // Required empty public constructor
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.fragment_today_habit_list, container, false);
-
-        setupRecyclerView(view, true);
-        listAdapter.refill(habitManager.getAvailableHabits());
-
-        return view;
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_habit_list, container, false);
     }
+
 
 }

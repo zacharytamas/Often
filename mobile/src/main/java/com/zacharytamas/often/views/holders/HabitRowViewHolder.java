@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.github.pavlospt.CircleView;
 import com.zacharytamas.often.R;
-import com.zacharytamas.often.adapters.TodayAdapter;
+import com.zacharytamas.often.adapters.HabitListAdapter;
 import com.zacharytamas.often.models.Habit;
 import com.zacharytamas.often.utils.Dates;
 
@@ -19,7 +19,7 @@ import org.joda.time.DateTime;
 /**
  * Created by zacharytamas on 10/25/15.
  */
-public class TodayRowViewHolder extends RecyclerView.ViewHolder {
+public class HabitRowViewHolder extends RecyclerView.ViewHolder {
 
     private final Context mContext;
     private int mRowType;
@@ -30,7 +30,7 @@ public class TodayRowViewHolder extends RecyclerView.ViewHolder {
     private CircleView mCircleView;
     private TextView mSectionHeader;
 
-    public TodayRowViewHolder(View itemView, int rowType, Context context) {
+    public HabitRowViewHolder(View itemView, int rowType, Context context) {
         super(itemView);
         mRowType = rowType;
         mContext = context;
@@ -39,10 +39,10 @@ public class TodayRowViewHolder extends RecyclerView.ViewHolder {
 
     private void bindView() {
         switch (mRowType) {
-            case TodayAdapter.TYPE_HEADER:
+            case HabitListAdapter.TYPE_HEADER:
                 mSectionHeader = (TextView) itemView.findViewById(R.id.sectionTitleTextView);
                 break;
-            case TodayAdapter.TYPE_HABIT:
+            case HabitListAdapter.TYPE_HABIT:
                 mMainView = (LinearLayout) itemView.findViewById(R.id.list_item_main);
                 mDoneView = (RelativeLayout) itemView.findViewById(R.id.list_item_done_layout);
                 mHabitTitle = (TextView) itemView.findViewById(R.id.habitTitle);
@@ -56,12 +56,12 @@ public class TodayRowViewHolder extends RecyclerView.ViewHolder {
         return mMainView;
     }
 
-    public void updateView(TodayAdapter.Row row) {
+    public void updateView(HabitListAdapter.Row row) {
         switch (row.type) {
-            case TodayAdapter.TYPE_HEADER:
+            case HabitListAdapter.TYPE_HEADER:
                 mSectionHeader.setText(row.title);
                 break;
-            case TodayAdapter.TYPE_HABIT:
+            case HabitListAdapter.TYPE_HABIT:
                 Habit habit = row.habit;
                 mMainView.setTranslationX(0);
                 mHabitTitle.setText(habit.title);

@@ -2,14 +2,13 @@ package com.zacharytamas.often.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.zacharytamas.often.R;
 import com.zacharytamas.often.models.Habit;
-import com.zacharytamas.often.views.holders.TodayRowViewHolder;
+import com.zacharytamas.often.views.holders.HabitRowViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +16,7 @@ import java.util.List;
 /**
  * Created by zacharytamas on 10/25/15.
  */
-public class TodayAdapter extends RecyclerView.Adapter<TodayRowViewHolder> {
+public class HabitListAdapter extends RecyclerView.Adapter<HabitRowViewHolder> {
     public static final int TYPE_HEADER = 0;
     public static final int TYPE_HABIT = 1;
     private static int HABIT_LAYOUT = R.layout.item_habit;
@@ -26,12 +25,12 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayRowViewHolder> {
 
     private ArrayList<Row> rows = new ArrayList<>();
 
-    public TodayAdapter(Context context) {
+    public HabitListAdapter(Context context) {
         mContext = context;
     }
 
     @Override
-    public TodayRowViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public HabitRowViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         int layout = HABIT_LAYOUT;
 
         if (viewType == TYPE_HEADER) {
@@ -41,11 +40,11 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayRowViewHolder> {
         // TODO Should I check if layout is not null? It shouldn't be possible.
         View view = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
 
-        return new TodayRowViewHolder(view, viewType, parent.getContext());
+        return new HabitRowViewHolder(view, viewType, parent.getContext());
     }
 
     @Override
-    public void onBindViewHolder(TodayRowViewHolder holder, int position) {
+    public void onBindViewHolder(HabitRowViewHolder holder, int position) {
         holder.updateView(this.rows.get(position));
     }
 
