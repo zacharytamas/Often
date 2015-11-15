@@ -11,6 +11,8 @@ import android.view.View;
 
 import com.zacharytamas.often.R;
 import com.zacharytamas.often.adapters.ViewPagerAdapter;
+import com.zacharytamas.often.ui.fragments.AllHabitsListFragment;
+import com.zacharytamas.often.ui.fragments.HabitListBaseFragment;
 import com.zacharytamas.often.ui.fragments.TodayHabitListFragment;
 import com.zacharytamas.often.utils.Data;
 
@@ -46,9 +48,10 @@ public class TodayActivity extends AppCompatActivity {
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        final ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         adapter.addFragment(new TodayHabitListFragment(), getString(R.string.tab_title_today));
+        adapter.addFragment(new AllHabitsListFragment(), getString(R.string.tab_title_all_habits));
 
         viewPager.setAdapter(adapter);
     }
