@@ -26,4 +26,8 @@ public class HabitManager {
                 .where(Condition.prop("available_at").lt(new DateTime().toDate().getTime())
                 ).list();
     }
+
+    public List<Habit> getAllHabits() {
+        return Select.from(Habit.class).list();
+    }
 }

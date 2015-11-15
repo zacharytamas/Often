@@ -22,11 +22,13 @@ public class TodayHabitListFragment extends HabitListBaseFragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_today_habit_list, container, false);
-
         setupRecyclerView(view, true);
-        listAdapter.refill(habitManager.getAvailableHabits());
-
+        update();
         return view;
+    }
+
+    public void update() {
+        listAdapter.refill(habitManager.getAvailableHabits());
     }
 
 }

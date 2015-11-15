@@ -93,4 +93,6 @@ public class HabitListBaseFragment extends Fragment {
         itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
+    public void update() {
+    }
 }
