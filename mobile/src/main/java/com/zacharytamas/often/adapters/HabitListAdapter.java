@@ -22,11 +22,13 @@ public class HabitListAdapter extends RecyclerView.Adapter<HabitRowViewHolder> {
     private static int HABIT_LAYOUT = R.layout.item_habit;
     private static int SECTION_HEADER_LAYOUT = R.layout.item_list_header;
     private Context mContext;
+    private boolean mEnableGrouping;
 
     private ArrayList<Row> rows = new ArrayList<>();
 
-    public HabitListAdapter(Context context) {
+    public HabitListAdapter(Context context, boolean enableGrouping) {
         mContext = context;
+        mEnableGrouping = enableGrouping;
     }
 
     @Override
@@ -73,13 +75,20 @@ public class HabitListAdapter extends RecyclerView.Adapter<HabitRowViewHolder> {
     public void refill(List<Habit> habits) {
         this.rows.clear();
 
-        // TODO Go through habits and create lists of Overdue and Available
+        if (mEnableGrouping) {
+            // TODO Go through habits and create lists of Overdue and Available
 
-        this.rows.add(new Row(TYPE_HEADER, "Available"));
+            this.rows.add(new Row(TYPE_HEADER, "Available"));
 
-        for (Habit habit : habits) {
-            this.rows.add(new Row(TYPE_HABIT, habit));
+            for (Habit habit : habits) {
+                this.rows.add(new Row(TYPE_HABIT, habit));
+            }
+        } else {
+            for (Habit habit : habits) {
+                this.rows.add(new Row(TYPE_HABIT, habit));
+            }
         }
+
 
         notifyDataSetChanged();
     }

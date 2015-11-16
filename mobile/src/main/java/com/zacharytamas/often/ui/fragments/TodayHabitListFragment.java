@@ -22,7 +22,7 @@ public class TodayHabitListFragment extends HabitListBaseFragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_today_habit_list, container, false);
-        setupRecyclerView(view, true);
+        setupRecyclerView(view, true, true);
         update();
         return view;
     }

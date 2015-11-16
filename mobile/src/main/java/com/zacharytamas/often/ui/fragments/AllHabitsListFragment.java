@@ -24,7 +24,7 @@ public class AllHabitsListFragment extends HabitListBaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_habit_list, container, false);
-        setupRecyclerView(view, false);
+        setupRecyclerView(view, false, false);
         update();
 
         return view;

@@ -23,12 +23,12 @@ public class HabitListBaseFragment extends Fragment {
 
     public HabitListBaseFragment() {
         habitManager = new HabitManager(getActivity());
-        listAdapter = new HabitListAdapter(getActivity());
     }
 
-    protected void setupRecyclerView(View view, boolean enableSliding) {
+    protected void setupRecyclerView(View view, boolean enableSliding, boolean enableGrouping) {
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        listAdapter = new HabitListAdapter(getActivity(), enableGrouping);
         recyclerView.setAdapter(listAdapter);
 
         if (enableSliding) {
