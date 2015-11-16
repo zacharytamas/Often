@@ -10,7 +10,10 @@ import com.zacharytamas.often.R;
 import com.zacharytamas.often.models.Habit;
 import com.zacharytamas.often.views.holders.HabitRowViewHolder;
 
+import org.joda.time.DateTime;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -78,10 +81,31 @@ public class HabitListAdapter extends RecyclerView.Adapter<HabitRowViewHolder> {
         if (mEnableGrouping) {
             // TODO Go through habits and create lists of Overdue and Available
 
-            this.rows.add(new Row(TYPE_HEADER, "Available"));
+            ArrayList<Row> available = new ArrayList<>();
+            ArrayList<Row> overdue = new ArrayList<>();
+
+            Date now = new DateTime().toDate();
 
             for (Habit habit : habits) {
-                this.rows.add(new Row(TYPE_HABIT, habit));
+                ArrayList<Row> list;
+
+                if (habit.required && habit.dueAt.before(now)) {
+                    list = overdue;
+                } else {
+                    list = available;
+                }
+
+                list.add(new Row(TYPE_HABIT, habit));
+            }
+
+            if (overdue.size() > 0) {
+                this.rows.add(new Row(TYPE_HEADER, "Overdue"));
+                this.rows.addAll(overdue);
+            }
+
+            if (available.size() > 0) {
+                this.rows.add(new Row(TYPE_HEADER, "Available"));
+                this.rows.addAll(available);
             }
         } else {
             for (Habit habit : habits) {
