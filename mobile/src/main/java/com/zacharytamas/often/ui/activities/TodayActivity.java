@@ -9,6 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+import com.zacharytamas.often.Application;
 import com.zacharytamas.often.R;
 import com.zacharytamas.often.adapters.ViewPagerAdapter;
 import com.zacharytamas.often.ui.fragments.AllHabitsListFragment;
@@ -20,10 +23,17 @@ import com.zacharytamas.often.utils.Data;
  * Created by zacharytamas on 10/25/15.
  */
 public class TodayActivity extends AppCompatActivity {
+
+    private Application application;
+    private Tracker tracker;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_today);
+
+        application = (Application) getApplication();
+        tracker = application.getDefaultTracker();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -61,6 +71,11 @@ public class TodayActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
+
+                // Log to Analytics which screen is being shown.
+                tracker.setScreenName("Today~" + adapter.getPageTitle(position));
+                tracker.send(new HitBuilders.ScreenViewBuilder().build());
+
                 HabitListBaseFragment fragment = (HabitListBaseFragment) adapter.getItem(position);
                 fragment.update();
             }
