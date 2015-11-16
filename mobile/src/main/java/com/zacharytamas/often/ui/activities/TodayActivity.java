@@ -28,7 +28,7 @@ public class TodayActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Data.addTestData(this, true);
+        Data.addTestData(this, false);
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.tabViewPager);
         setupViewPager(viewPager);
