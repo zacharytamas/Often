@@ -26,7 +26,7 @@
             android:value="com.zacharytamas.often" />
 
         <activity
-            android:name=".ui.activities.TodayActivity"
+            android:name=".ui.activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
@@ -38,11 +38,11 @@
         <activity
             android:name=".ui.activities.AddHabitActivity"
             android:label="@string/title_activity_add_habit"
-            android:parentActivityName=".ui.activities.TodayActivity"
+            android:parentActivityName=".ui.activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.zacharytamas.often.ui.activities.TodayActivity" />
+                android:value=".ui.activities.MainActivity" />
         </activity>
     </application>
 

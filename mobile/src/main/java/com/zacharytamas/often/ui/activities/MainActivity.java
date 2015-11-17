@@ -23,7 +23,7 @@ import com.zacharytamas.often.utils.Data;
 /**
  * Created by zacharytamas on 10/25/15.
  */
-public class TodayActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
     private Application application;
     private Tracker tracker;
@@ -62,12 +62,12 @@ public class TodayActivity extends AppCompatActivity {
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
-        final TodayActivity todayActivity = this;
+        final MainActivity mainActivity = this;
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(todayActivity, AddHabitActivity.class);
+                Intent intent = new Intent(mainActivity, AddHabitActivity.class);
                 startActivity(intent);
             }
         });
