@@ -1,8 +1,8 @@
 package com.zacharytamas.often.ui.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -51,6 +51,7 @@ public class TodayActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // TODO BLOCKING Remove before release.
         Data.addTestData(this, false);
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.tabViewPager);
@@ -61,10 +62,13 @@ public class TodayActivity extends AppCompatActivity {
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
+        final TodayActivity todayActivity = this;
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(v, "Should launch Add Habit Activity", Snackbar.LENGTH_LONG).show();
+                Intent intent = new Intent(todayActivity, AddHabitActivity.class);
+                startActivity(intent);
             }
         });
 
