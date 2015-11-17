@@ -8,4 +8,5 @@
 
     <string name="tab_title_today">Today</string>
     <string name="tab_title_all_habits">All Habits</string>
+    <string name="title_activity_add_habit">Add Habit</string>
 </resources>

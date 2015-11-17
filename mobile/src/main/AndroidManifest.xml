@@ -28,6 +28,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.activities.AddHabitActivity"
+            android:label="@string/title_activity_add_habit"
+            android:parentActivityName=".ui.activities.TodayActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.zacharytamas.often.ui.activities.TodayActivity" />
+        </activity>
     </application>
 
 </manifest>
