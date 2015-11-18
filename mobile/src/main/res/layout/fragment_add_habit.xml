@@ -10,7 +10,7 @@
 
     <LinearLayout android:orientation="horizontal" android:layout_height="wrap_content" android:layout_width="fill_parent">
         <LinearLayout android:orientation="vertical"
-            android:layout_height="wrap_content" android:layout_width="fill_parent"
+            android:layout_height="wrap_content" android:layout_width="0dp"
             android:layout_weight="1">
             <TextView android:layout_height="wrap_content" android:layout_width="wrap_content"
                 android:text="Whataquan?" />
@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/switch1"
-            android:gravity="right" />
+            android:gravity="end" />
     </LinearLayout>
 
 </LinearLayout>
